@@ -10,7 +10,6 @@
   },
   "description": "project-template",
   "scripts": {
-    "test": "node main.js",
     "start": "npm run dev",
     "dev": "vite",
     "build": "vite build",
