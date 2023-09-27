@@ -173,6 +173,8 @@ npm i
 
 ### 运行项目
 
+- 本地运行推荐复制文件 `.env` 为 `.env.development`，并修改其中的环境变量
+
 ```Basic
 npm start
 ```
