@@ -2,6 +2,11 @@
 
 一个关于 Github 统计的项目
 
+<h2 align="center">
+  <a href="https://github.com/biaov/github-statistics"><img src="https://img.shields.io/badge/version-v1.0.0-blue" /></a>
+  <a href="https://github.com/biaov/github-statistics/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" /></a>
+</h2>
+
 ## 使用
 
 ### 获取近 30 天内的 Github 仓库贡献记录
