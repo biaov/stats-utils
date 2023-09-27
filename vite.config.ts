@@ -33,7 +33,7 @@ const config: UserConfig = {
       formats: ['cjs']
     },
     rollupOptions: {
-      external: ['path', 'child_process', 'fs', 'express'],
+      external: ['path', 'child_process', 'fs', 'axios', 'dayjs', 'express'],
       output: {
         entryFileNames: '[name].js'
       }
