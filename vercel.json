@@ -1,5 +1,11 @@
 {
   "version": 2,
+  "build": [
+    {
+      "src": "dist/index.js",
+      "use": "@vercel/node"
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
