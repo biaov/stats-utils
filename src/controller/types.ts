@@ -36,3 +36,13 @@ export interface UserData {
   name: string
   contributions: contributionDayItem[]
 }
+
+/**
+ * svg option
+ */
+export interface SVGOption {
+  color: string
+  background: string
+  title: string
+  titleColor: string
+}

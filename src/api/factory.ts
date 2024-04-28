@@ -1,8 +1,14 @@
 import type { AxiosRequestConfig } from 'axios'
 import { service } from '@/utils/request'
 
-const factory = service(import.meta.env.VITE_GITHUB_BASE_URL, { Authorization: `bearer ${import.meta.env.PROD ? process.env.GITHUB_TOKEN : import.meta.env.VITE_TOKEN}` })
-export const command = (path: string) => ({
-  get: (query = {}) => factory.get(path, { params: query }) as Promise<Record<string, any>>,
-  post: <T>(data = {}, config: AxiosRequestConfig = {}) => factory.post(path, data, config) as Promise<T>
-})
+/**
+ * 创建服务
+ */
+export const factory = (baseURL: string, headers: AxiosRequestConfig['headers'] = {}) => {
+  const factory = service(baseURL, headers)
+
+  return (path: string) => ({
+    get: <T>(query = {}) => factory.get(path, { params: query }) as Promise<T>,
+    post: <T>(data = {}, config: AxiosRequestConfig = {}) => factory.post(path, data, config) as Promise<T>
+  })
+}
