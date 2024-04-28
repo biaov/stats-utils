@@ -17,8 +17,8 @@
 
 ### 获取近 30 天内的 Github 仓库贡献记录
 
-- `https://stats-utils-biaov.vercel.app/api/github-stats?username=[用户名]`
-- 案例：`https://stats-utils-biaov.vercel.app/api/github-stats?username=biaov`
+- `https://stats-utils.vercel.app/api/github-stats?username=[用户名]`
+- 案例：`https://stats-utils.vercel.app/api/github-stats?username=biaov`
 
 <details>
 <summary>👀 点击查看 JSON 数据</summary>
@@ -159,11 +159,11 @@
 
 ### 根据文本生成 SVG 图片
 
-- `https://stats-utils-biaov.vercel.app/api/text-image?text=[自定义文本]`
-- ![案例](https://stats-utils-biaov.vercel.app/api/text-image?text=案例)
+- `https://stats-utils.vercel.app/api/text-image?text=[自定义文本]`
+- ![案例](https://stats-utils.vercel.app/api/text-image?text=案例)
 
 ```md
-![案例](https://stats-utils-biaov.vercel.app/api/text-image?text=案例)
+![案例](https://stats-utils.vercel.app/api/text-image?text=案例)
 ```
 
 #### Query 参数
@@ -177,10 +177,10 @@
 ### CSDN 统计面板
 
 ```md
-![CSDN 数据](https://stats-utils-biaov.vercel.app/api/csdn/biao_feng)
+![CSDN 数据](https://stats-utils.vercel.app/api/csdn/biao_feng)
 ```
 
-- [![CSDN 数据](https://stats-utils-biaov.vercel.app/api/csdn/biao_feng)](https://blog.csdn.net/biao_feng)
+- [![CSDN 数据](https://stats-utils.vercel.app/api/csdn/biao_feng)](https://blog.csdn.net/biao_feng)
 
 #### Query 参数
 
