@@ -3,7 +3,7 @@ import express from 'express'
 import { router } from '@/router'
 import { baseURL, port } from '@/config'
 
-export const app = express()
+const app = express()
 
 app.use(baseURL, router)
 

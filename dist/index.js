@@ -185,6 +185,3 @@ const baseURL = "/api";
 const app = express();
 app.use(baseURL, router);
 app.listen(port);
-export {
-  app
-};
