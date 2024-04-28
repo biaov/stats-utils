@@ -78,7 +78,7 @@ export const getCSDN = async (req: Request, res: Response) => {
       res.send(renderSvg(options, req.query))
     })
     .catch(error => {
-      res.json(error)
+      res.status(422).json({ message: error })
       // res.status(422).json({ message: `请检查 ${username} 是否正确` })
     })
 }

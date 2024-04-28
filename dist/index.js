@@ -173,7 +173,7 @@ const getCSDN = async (req, res) => {
     res.setHeader("Content-Type", "image/svg+xml");
     res.send(renderSvg(options, req.query));
   }).catch((error) => {
-    res.json(error);
+    res.status(422).json({ message: error });
   });
 };
 const router = Router();
