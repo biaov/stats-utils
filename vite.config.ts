@@ -3,6 +3,16 @@ import { resolve } from 'path'
 import { VitePluginNode } from 'vite-plugin-node'
 import { port } from './src/config'
 
+const plugins = []
+process.env.NODE_ENV !== 'production' &&
+  plugins.push(
+    ...VitePluginNode({
+      adapter: 'express',
+      appPath: './src/app.ts',
+      exportName: 'app',
+      tsCompiler: 'esbuild'
+    })
+  )
 const config: UserConfig = {
   root: __dirname,
   resolve: {
@@ -10,14 +20,7 @@ const config: UserConfig = {
       '@': resolve(__dirname, './src')
     }
   },
-  plugins: [
-    ...VitePluginNode({
-      adapter: 'express',
-      appPath: './src/app.ts',
-      exportName: 'app',
-      tsCompiler: 'esbuild'
-    })
-  ],
+  plugins,
   optimizeDeps: {
     exclude: ['sequelize']
   },
