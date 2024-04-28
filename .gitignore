@@ -2,4 +2,3 @@ node_modules
 .env.development
 .git
 .log
-dist
