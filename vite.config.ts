@@ -26,11 +26,10 @@ const config: UserConfig = {
     port
   },
   build: {
-    target: 'node18',
     outDir: resolve(__dirname, './dist'),
     lib: {
       entry: resolve(__dirname, './src/index.ts'),
-      formats: ['cjs']
+      formats: ['es']
     },
     rollupOptions: {
       external: ['path', 'child_process', 'fs', 'axios', 'dayjs', 'express', 'dom-parser'],
