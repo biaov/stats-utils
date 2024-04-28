@@ -13,7 +13,7 @@ const config: UserConfig = {
   plugins: [
     ...VitePluginNode({
       adapter: 'express',
-      appPath: './src/output.ts',
+      appPath: './src/app.ts',
       exportName: 'app',
       tsCompiler: 'esbuild'
     })

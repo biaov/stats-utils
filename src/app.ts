@@ -1,3 +1,4 @@
+/// <reference path="./module.d.ts" />
 import express from 'express'
 import { router } from '@/router'
 import { baseURL, port } from '@/config'
