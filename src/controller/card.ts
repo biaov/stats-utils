@@ -77,7 +77,8 @@ export const getCSDN = async (req: Request, res: Response) => {
       res.setHeader('Content-Type', 'image/svg+xml')
       res.send(renderSvg(options, req.query))
     })
-    .catch(() => {
-      res.status(422).json({ message: `请检查 ${username} 是否正确` })
+    .catch(error => {
+      res.json(error)
+      // res.status(422).json({ message: `请检查 ${username} 是否正确` })
     })
 }
