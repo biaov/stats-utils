@@ -30,7 +30,7 @@ const getGraphqlParams = (to: string, from: string, name: string) => ({
 /**
  * Github 统计
  */
-export const getGithubStatistics = async (req: Request, res: Response) => {
+export const getGithubStats = async (req: Request, res: Response) => {
   const { username } = req.query
   /**
    * 近 30 天数据

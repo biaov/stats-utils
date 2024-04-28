@@ -1,18 +1,24 @@
-# github-statistics
+# stats-utils
 
-一个关于 Github 统计的项目
+一个用于展示统计数据的项目 😀
 
 <h2 align="center">
-  <a href="https://github.com/biaov/github-statistics"><img src="https://img.shields.io/badge/version-v1.0.0-blue" /></a>
-  <a href="https://github.com/biaov/github-statistics/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" /></a>
+  <a href="https://github.com/biaov/stats-utils"><img src="https://shields.io/github/v/release/biaov/stats-utils.svg?logo=github&label=version" alt="version" /></a>
+  <a href="https://github.com/biaov/stats-utils/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license" /></a>
 </h2>
+
+## 特性
+
+- [x] [获取近 30 天内的 Github 仓库贡献记录](#获取近-30-天内的-github-仓库贡献记录)
+- [x] [根据文本生成 SVG 图片](#根据文本生成-svg-图片)
+- [x] [CSDN 统计面板](csdn-统计面板)
 
 ## 使用
 
 ### 获取近 30 天内的 Github 仓库贡献记录
 
-- `https://github-statistics-biaov.vercel.app/api/github-statistics?username=[用户名]`
-- 案例：`https://github-statistics-biaov.vercel.app/api/github-statistics?username=biaov`
+- `https://stats-utils-biaov.vercel.app/api/github-stats?username=[用户名]`
+- 案例：`https://stats-utils-biaov.vercel.app/api/github-stats?username=biaov`
 
 <details>
 <summary>👀 点击查看 JSON 数据</summary>
@@ -153,40 +159,57 @@
 
 ### 根据文本生成 SVG 图片
 
-- `https://github-statistics-biaov.vercel.app/api/generate-text-image?text=[自定义文本]`
-- ![案例](https://github-statistics-biaov.vercel.app/api/generate-text-image?text=案例)
+- `https://stats-utils-biaov.vercel.app/api/text-image?text=[自定义文本]`
+- ![案例](https://stats-utils-biaov.vercel.app/api/text-image?text=案例)
 
-```text
-![案例](https://github-statistics-biaov.vercel.app/api/generate-text-image?text=案例)
+```md
+![案例](https://stats-utils-biaov.vercel.app/api/text-image?text=案例)
 ```
 
-#### 参数
+#### Query 参数
 
-| 名称  | 描述                        | 默认值   |
-| ----- | --------------------------- | -------- |
-| text  | 文本内容                    | --       |
-| size  | 文本字体大小，单位像素      | `34`     |
-| color | 文本颜色，16 进制，自带 `#` | `f56c6c` |
+| 名称  | 描述                                                 | 类型   | 默认值   |
+| ----- | ---------------------------------------------------- | ------ | -------- |
+| text  | 文本内容                                             | string | --       |
+| size  | 文本字体大小, 单位像素                               | number | `34`     |
+| color | 文本颜色, 支持 16 进制, 自带 `#`, 或者 `rgb`, `rgba` | string | `f56c6c` |
+
+### CSDN 统计面板
+
+```md
+![CSDN 数据](https://stats-utils-biaov.vercel.app/api/csdn/biao_feng)
+```
+
+- [![CSDN 数据](https://stats-utils-biaov.vercel.app/api/csdn/biao_feng)](https://blog.csdn.net/biao_feng)
+
+#### Query 参数
+
+| 名称       | 描述                                                 | 类型   | 默认值      |
+| ---------- | ---------------------------------------------------- | ------ | ----------- |
+| color      | 文本颜色, 支持 16 进制, 自带 `#`, 或者 `rgb`, `rgba` | string | `38bdae`    |
+| background | 背景颜色, 支持 16 进制, 自带 `#`, 或者 `rgb`, `rgba` | string | `1a1b27`    |
+| title      | 标题内容                                             | string | `CSDN 数据` |
+| titleColor | 标题颜色, 支持 16 进制, 自带 `#`, 或者 `rgb`, `rgba` | string | `70a5fd`    |
 
 ## 项目运行
 
 ### 安装依赖
 
-```Basic
+- 运行以下命令安装依赖时, 会自动创建 `.env.development` 环境变量文件
+
+```sh
 npm i
 ```
 
 ### 运行项目
 
-- 本地运行推荐复制文件 `.env` 为 `.env.development`，并修改其中的环境变量
-
-```Basic
+```sh
 npm start
 ```
 
 ### 打包项目
 
-```Basic
+```sh
 npm run build
 ```
 
@@ -198,20 +221,26 @@ npm run build
 
 ### 技术栈
 
-- `Vite` + `TS` + `Node` + `Express`
+- `Vite` + `TS` + `NodeJs` + `Express`
 
 ### 依赖特性
 
+#### dependencies
+
 - `axios`: 网络请求工具
 - `dayjs`: 时间处理工具
+- `dom-parser`: 解析 HTML
 - `express`: Node 开发框架
+
+#### devDependencies
+
 - `@types/express`: `express` 的类型
 - `@types/node`: `node` 的类型
 - `terser`: 压缩代码
 - `typescript`: 编程语言
 - `vite`: 项目构建工具
-- `vite-plugin-node`: vite 插件，开启 Node.js 服务器
+- `vite-plugin-node`: vite 插件, 开启 Node.js 服务器
 
 ## 贡献者们
 
-[![贡献者们](https://contrib.rocks/image?repo=biaov/github-statistics)](https://github.com/biaov/github-statistics/graphs/contributors)
+[![贡献者们](https://contrib.rocks/image?repo=biaov/stats-utils)](https://github.com/biaov/stats-utils/graphs/contributors)

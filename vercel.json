@@ -19,7 +19,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "https://github.com/biaov/github-statistics"
+      "destination": "https://github.com/biaov/stats-utils"
     }
   ],
   "cleanUrls": true

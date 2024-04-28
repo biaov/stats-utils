@@ -29,9 +29,9 @@ const getCharacterLength = (str: string) => {
 /**
  * Github 统计
  */
-export const generateTextImage = async (req: Request, res: Response) => {
-  const { text, size = 34, color = 'f56c6c' } = req.query
-
+export const getTextImage = async (req: Request, res: Response) => {
+  let { text, size = 34, color = 'f56c6c' } = req.query
+  color = ((color as string).includes('rgb') ? '' : '#') + color
   /**
    * 文本
    */
@@ -42,7 +42,7 @@ export const generateTextImage = async (req: Request, res: Response) => {
 
   const height = +size * 1.31
   const width = (+size * getCharacterLength(text as string)) / 2
-  const svg = `<svg data-name="图层 2" xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
     <defs>
       <style>
         .cls-1 {
@@ -52,7 +52,7 @@ export const generateTextImage = async (req: Request, res: Response) => {
         }
       </style>
     </defs>
-    <g id="_图层_1-2" data-name="图层 1">
+    <g>
       <text class="cls-1" transform="translate(0 ${height * 0.7})"><tspan x="0" y="0">${text}</tspan></text>
     </g>
   </svg>`

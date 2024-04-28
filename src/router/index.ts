@@ -1,15 +1,21 @@
 import { Router } from 'express'
-import { getGithubStatistics } from '@/controller/github-statistics'
-import { generateTextImage } from '@/controller/common'
+import { getTextImage } from '@/controller/common'
+import { getGithubStats } from '@/controller/github-stats'
+import { getCSDN } from '@/controller/card'
 
 export const router = Router()
 
 /**
  * github 统计
  */
-router.get('/github-statistics', getGithubStatistics)
+router.get('/github-stats', getGithubStats)
 
 /**
  * 生成文字图
  */
-router.get('/generate-text-image', generateTextImage)
+router.get('/text-image', getTextImage)
+
+/**
+ * 获取 CSDN 面板
+ */
+router.get('/csdn/:username', getCSDN)
