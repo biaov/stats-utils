@@ -12,11 +12,5 @@
       "dest": "https://blog.csdn.net/$1"
     }
   ],
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "https://github.com/biaov/stats-utils"
-    }
-  ],
   "cleanUrls": true
 }
