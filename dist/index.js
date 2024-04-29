@@ -172,7 +172,8 @@ const getCSDN = async (req, res) => {
     const options = transformData(data);
     res.setHeader("Content-Type", "image/svg+xml");
     res.send(renderSvg(options, req.query));
-  }).catch(() => {
+  }).catch((error) => {
+    console.log(error, "--error");
     res.status(422).json({ message: `请检查 ${username} 是否正确` });
   });
 };
