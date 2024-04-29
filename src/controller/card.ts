@@ -73,12 +73,12 @@ export const getCSDN = async (req: Request, res: Response) => {
   csdnApi(username)
     .get<string>()
     .then(data => {
-      const options = transformData(data)
-      res.setHeader('Content-Type', 'image/svg+xml')
-      res.send(renderSvg(options, req.query))
+      res.json(data)
+      // const options = transformData(data)
+      // res.setHeader('Content-Type', 'image/svg+xml')
+      // res.send(renderSvg(options, req.query))
     })
     .catch(error => {
-      console.log(error)
       res.status(422).json({ message: JSON.stringify(error) })
       // res.status(422).json({ message: `请检查 ${username} 是否正确` })
     })
