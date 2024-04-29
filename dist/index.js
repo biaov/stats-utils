@@ -51,7 +51,7 @@ const service = (baseURL2, headers = {}) => {
   });
   instance.interceptors.response.use(
     (response) => response.data,
-    ({ response }) => Promise.reject(response)
+    (response) => Promise.reject(response)
   );
   return instance;
 };
@@ -169,13 +169,11 @@ const transformData = (data) => {
 const getCSDN = async (req, res) => {
   const { username } = req.params;
   csdnApi(username).get().then((data) => {
-    console.log(data);
     const options = transformData(data);
     res.setHeader("Content-Type", "image/svg+xml");
     res.send(renderSvg(options, req.query));
   }).catch((error) => {
-    console.log(error, "--error");
-    res.status(422).json({ message: `请检查 ${username} 是否正确` });
+    res.status(422).json(error);
   });
 };
 const router = Router();
