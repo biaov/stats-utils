@@ -125,7 +125,7 @@ const getCSDN = async (req, res) => {
   csdnApi(username).get().then((data) => {
     res.json(data);
   }).catch((error) => {
-    res.status(422).json({ message: error.toString() });
+    res.status(422).json({ message: error.message });
   });
 };
 const router = Router();
