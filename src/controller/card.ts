@@ -73,7 +73,8 @@ export const getCSDN = async (req: Request, res: Response) => {
   csdnApi(username)
     .get<string>()
     .then(data => {
-      res.json(data)
+      console.log(data)
+      res.json(data.toString())
       // res.json(data.toString())
       // const options = transformData(data)
       // res.setHeader('Content-Type', 'image/svg+xml')
