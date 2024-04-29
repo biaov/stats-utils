@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "buildCommend": "npm run build",
-  
   "builds": [
     {
       "src": "dist/index.js",
