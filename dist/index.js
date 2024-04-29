@@ -51,8 +51,8 @@ const factory = (baseURL2, headers = {}) => {
     post: (data = {}, config = {}) => factory2.post(path, data, config)
   });
 };
-const command$1 = factory("https://api.github.com/", { Authorization: `bearer ${process.env.GITHUB_TOKEN}` });
-const graphqlApi = command$1("graphql");
+const command = factory("https://api.github.com/", { Authorization: `bearer ${process.env.GITHUB_TOKEN}` });
+const graphqlApi = command("graphql");
 const getGraphqlParams = (to, from, name) => ({
   query: `
     query userInfo($name: String!, $from: DateTime!, $to: DateTime!) {
@@ -105,12 +105,20 @@ const getGithubStats = async (req, res) => {
     return error;
   }
 };
-const command = factory("https://blog.csdn.net/", {
+factory("https://blog.csdn.net/", {
   "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
   "Content-Type": "text/html;charset=utf-8",
   referrer: "https://blog.csdn.net/"
 });
-const csdnApi = (username) => command(username);
+const csdnApi = (username) => fetch(`https://blog.csdn.net/${username}`, {
+  headers: {
+    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
+    "Content-Type": "text/html;charset=utf-8"
+  }
+}).then((response) => {
+  if (response.ok)
+    return response.text();
+});
 const defaultSVGOption = {
   color: "#38bdae",
   background: "#1a1b27",
@@ -159,7 +167,7 @@ const transformData = (data) => {
 };
 const getCSDN = async (req, res) => {
   const { username } = req.params;
-  csdnApi(username).get().then((data) => {
+  csdnApi(username).then((data) => {
     const options = transformData(data);
     res.setHeader("Content-Type", "image/svg+xml");
     res.send(renderSvg(options, req.query));
