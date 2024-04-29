@@ -70,16 +70,17 @@ const transformData = (data: string) => {
  * csdn 统计
  */
 export const getCSDN = async (req: Request, res: Response) => {
-  const { username } = req.params
-  csdnApi(username)
-    .get<string>()
-    .then(data => {
-      console.log(data)
-      const options = transformData(data)
-      res.setHeader('Content-Type', 'image/svg+xml')
-      res.send(renderSvg(options, req.query))
-    })
-    .catch(() => {
-      res.status(422).json({ message: `请检查 ${username} 是否正确` })
-    })
+  res.json({ a: 1 })
+  // return
+  // const { username } = req.params
+  // csdnApi(username)
+  //   .get<string>()
+  //   .then(data => {
+  //     const options = transformData(data)
+  //     res.setHeader('Content-Type', 'image/svg+xml')
+  //     res.send(renderSvg(options, req.query))
+  //   })
+  //   .catch(() => {
+  //     res.status(422).json({ message: `请检查 ${username} 是否正确` })
+  //   })
 }
