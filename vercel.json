@@ -12,16 +12,6 @@
       "dest": "https://blog.csdn.net/$1"
     }
   ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "dist/index.js"
-    },
-    {
-      "source": "/(.+)",
-      "destination": "dist/index.js"
-    }
-  ],
   "redirects": [
     {
       "source": "/",
