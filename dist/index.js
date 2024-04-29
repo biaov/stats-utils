@@ -123,7 +123,7 @@ const csdnApi = (username) => command(username);
 const getCSDN = async (req, res) => {
   const { username } = req.params;
   csdnApi(username).get().then((data) => {
-    res.json(data);
+    res.json(data.toString());
   }).catch((error) => {
     console.log(error);
     res.status(422).json(error);
