@@ -6,6 +6,12 @@
       "use": "@vercel/node"
     }
   ],
+  "routes": [
+    {
+      "src": "/csdn/(.*)",
+      "dest": "https://blog.csdn.net/$1"
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
