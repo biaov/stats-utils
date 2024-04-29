@@ -11,6 +11,10 @@
   ],
   "routes": [
     {
+      "src": "/",
+      "dest": "dist/index.js"
+    },
+    {
       "src": "/csdn/(.*)",
       "dest": "https://blog.csdn.net/$1"
     }
