@@ -45,10 +45,14 @@ const service = (baseURL2, headers = {}) => {
     baseURL: baseURL2,
     timeout: 1e4,
     headers: {
-      ...headers,
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      ...headers
     }
   });
+  instance.interceptors.response.use(
+    (response) => response.data,
+    ({ response }) => Promise.reject(response)
+  );
   return instance;
 };
 const factory = (baseURL2, headers = {}) => {
@@ -121,10 +125,10 @@ const csdnApi = (username) => command(`https://blog.csdn.net/${username}`);
 const getCSDN = async (req, res) => {
   const { username } = req.params;
   csdnApi(username).get().then((data) => {
-    res.json(data.data.toString());
+    res.json(data.toString());
   }).catch((error) => {
-    console.log(error);
-    res.status(422).json(error);
+    console.log(error.data);
+    res.status(422).json(error.data);
   });
 };
 const router = Router();

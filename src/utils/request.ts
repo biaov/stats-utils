@@ -9,18 +9,18 @@ export const service = (baseURL: string, headers: AxiosRequestConfig['headers'] 
     baseURL,
     timeout: 10000,
     headers: {
-      ...headers,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      ...headers
     }
   })
 
   /**
    * respone 响应拦截器
    */
-  // instance.interceptors.response.use(
-  //   response => response.data,
-  //   ({ response }) => Promise.reject(response)
-  // )
+  instance.interceptors.response.use(
+    response => response.data,
+    ({ response }) => Promise.reject(response)
+  )
 
   return instance
 }
