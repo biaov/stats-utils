@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { parseFromString } from 'dom-parser'
 import { csdnApi } from '@/api/card'
+import { transformColor } from '@/utils/function'
 import type { SVGOption } from './types'
-import { log } from 'console'
 
 const defaultSVGOption: SVGOption = {
   color: '#38bdae',
@@ -22,7 +22,7 @@ const height = 180
  */
 const renderSvg = (data: Option[], option: Partial<SVGOption>) => {
   Object.entries(option).forEach(([key, value]) => {
-    defaultSVGOption[key as keyof SVGOption] = (colorFields.includes(key) && value.includes('rgb') ? '' : `#`) + value
+    defaultSVGOption[key as keyof SVGOption] = colorFields.includes(key) ? transformColor(value) : value
   })
 
   const html = data.reduce((prev, item, i) => {

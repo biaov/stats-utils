@@ -12,3 +12,8 @@ export const randomLetter = (length = 5) => {
 
   return code
 }
+
+/**
+ * 转化颜色
+ */
+export const transformColor = (color: unknown) => (`${color}`.includes('rgb') ? '' : '#') + `${color}`

@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import dayjs from "dayjs";
 import axios from "axios";
 import { parseFromString } from "dom-parser";
+const transformColor = (color) => (`${color}`.includes("rgb") ? "" : "#") + `${color}`;
 const getCharacterLength = (str) => {
   let length = 0;
   for (let i = 0; i < str.length; i++) {
@@ -16,26 +17,14 @@ const getCharacterLength = (str) => {
 };
 const getTextImage = async (req, res) => {
   let { text, size = 34, color = "f56c6c" } = req.query;
-  color = (color.includes("rgb") ? "" : "#") + color;
-  if (!text) {
-    res.status(422).json({ message: "文本内容必传" });
-    return;
-  }
-  const height2 = +size * 1.31;
-  const width2 = +size * getCharacterLength(text) / 2;
+  color = transformColor(color);
+  if (!text)
+    return res.status(422).json({ message: "文本内容必传" });
+  const height2 = Math.round(+size * 1.31);
+  const width2 = Math.round(+size * getCharacterLength(text) / 2);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width2}" height="${height2}" viewBox="0 0 ${width2} ${height2}">
-    <defs>
-      <style>
-        .cls-1 {
-          fill: #${color};
-          font-family: jiangxizhuokai-Regular, jiangxizhuokai;
-          font-size: ${size}px;
-        }
-      </style>
-    </defs>
-    <g>
-      <text class="cls-1" transform="translate(0 ${height2 * 0.7})"><tspan x="0" y="0">${text}</tspan></text>
-    </g>
+    <style>.cls-1 { fill: ${color};font-family: jiangxizhuokai-Regular, jiangxizhuokai;font-size: ${size}px;}</style>
+    <text class="cls-1" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">${text}</text>
   </svg>`;
   res.setHeader("Content-Type", "image/svg+xml");
   res.send(svg);
@@ -117,7 +106,9 @@ const getGithubStats = async (req, res) => {
   }
 };
 const command = factory("https://blog.csdn.net/", {
-  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
+  "Content-Type": "text/html;charset=utf-8",
+  referrer: "https://blog.csdn.net/"
 });
 const csdnApi = (username) => command(username);
 const defaultSVGOption = {
@@ -132,7 +123,7 @@ const width = 340;
 const height = 180;
 const renderSvg = (data, option) => {
   Object.entries(option).forEach(([key, value]) => {
-    defaultSVGOption[key] = (colorFields.includes(key) && value.includes("rgb") ? "" : `#`) + value;
+    defaultSVGOption[key] = colorFields.includes(key) ? transformColor(value) : value;
   });
   const html = data.reduce((prev, item, i) => {
     const x = i % 2 ? 200 : 30;
@@ -178,7 +169,7 @@ const getCSDN = async (req, res) => {
 };
 const router = Router();
 router.get("/github-stats", getGithubStats);
-router.get("/text-image", getTextImage);
+router.get("/svg", getTextImage);
 router.get("/csdn/:username", getCSDN);
 const port = 4e3;
 const baseURL = "/api";
