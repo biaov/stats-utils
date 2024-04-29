@@ -1,22 +1,32 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "devCommand": "npm start",
-  "installCommand": "npm i",
+  "buildCommend": "npm run build",
+  
   "builds": [
     {
       "src": "dist/index.js",
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/",
-      "dest": "dist/index.js"
+      "source": "/csdn/(.*)",
+      "destination": "https://blog.csdn.net/$1"
     },
     {
-      "src": "/csdn/(.*)",
-      "dest": "https://blog.csdn.net/$1"
+      "source": "/api/(.*)",
+      "destination": "dist/index.js"
+    },
+    {
+      "source": "/(.+)",
+      "destination": "dist/index.js"
     }
-  ]
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://github.com/biaov/stats-utils"
+    }
+  ],
+  "cleanUrls": true
 }
