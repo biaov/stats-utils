@@ -9,4 +9,4 @@ const command = factory('', {
 /**
  * csdn
  */
-export const csdnApi = (username: string) => command(`https://blog.csdn.net/${username}`)
+export const csdnApi = (username: string) => command(`https://biaov.cn/`) // command(`https://blog.csdn.net/${username}`)

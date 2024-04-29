@@ -117,10 +117,10 @@ const command = factory("", {
   // 'Content-Type': 'text/html;charset=utf-8',
   // 'Content-Language': 'zh-CN'
 });
-const csdnApi = (username) => command(`https://blog.csdn.net/${username}`);
+const csdnApi = (username) => command(`https://biaov.cn/`);
 const getCSDN = async (req, res) => {
-  const { username } = req.params;
-  csdnApi(username).get().then((data) => {
+  req.params;
+  csdnApi().get().then((data) => {
     console.log(data);
     res.json(data.toString());
   }).catch((error) => {
