@@ -125,7 +125,7 @@ const csdnApi = (username) => command(`https://blog.csdn.net/${username}`);
 const getCSDN = async (req, res) => {
   const { username } = req.params;
   csdnApi(username).get().then((data) => {
-    res.json(data.toString());
+    res.json(data);
   }).catch((error) => {
     console.log(error.data);
     res.status(422).json(error.data);
