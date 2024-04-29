@@ -49,10 +49,6 @@ const service = (baseURL2, headers = {}) => {
       "Content-Type": "application/json"
     }
   });
-  instance.interceptors.response.use(
-    (response) => response.data,
-    ({ response }) => Promise.reject(response)
-  );
   return instance;
 };
 const factory = (baseURL2, headers = {}) => {
