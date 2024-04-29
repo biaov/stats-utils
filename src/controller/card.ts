@@ -71,7 +71,7 @@ const transformData = (data: string) => {
 export const getCSDN = async (req: Request, res: Response) => {
   const { username } = req.params
   csdnApi(username)
-    .get<any>()
+    .get<string>()
     .then(data => {
       res.json(data)
       // res.json(data.toString())
@@ -80,7 +80,7 @@ export const getCSDN = async (req: Request, res: Response) => {
       // res.send(renderSvg(options, req.query))
     })
     .catch(error => {
-      console.log(error.data)
+      console.log(error)
       res.status(422).json(error.data)
       // res.status(422).json({ message: `请检查 ${username} 是否正确` })
     })
