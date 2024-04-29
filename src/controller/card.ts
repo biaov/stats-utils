@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { parseFromString } from 'dom-parser'
 import { csdnApi } from '@/api/card'
 import type { SVGOption } from './types'
+import { log } from 'console'
 
 const defaultSVGOption: SVGOption = {
   color: '#38bdae',
@@ -73,6 +74,7 @@ export const getCSDN = async (req: Request, res: Response) => {
   csdnApi(username)
     .get<string>()
     .then(data => {
+      console.log(data)
       const options = transformData(data)
       res.setHeader('Content-Type', 'image/svg+xml')
       res.send(renderSvg(options, req.query))
