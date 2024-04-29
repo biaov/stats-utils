@@ -11,8 +11,8 @@
   ],
   "rewrites": [
     {
-      "source": "/csdn/(.*)",
-      "destination": "https://blog.csdn.net/$1"
+      "source": "/csdn/:match*",
+      "destination": "https://blog.csdn.net/:match*"
     },
     {
       "source": "/api/(.*)",
