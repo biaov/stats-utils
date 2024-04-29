@@ -49,6 +49,10 @@ const service = (baseURL2, headers = {}) => {
       ...headers
     }
   });
+  instance.interceptors.response.use(
+    (response) => response.data,
+    ({ response }) => Promise.reject(response)
+  );
   return instance;
 };
 const factory = (baseURL2, headers = {}) => {
@@ -113,16 +117,15 @@ const getGithubStats = async (req, res) => {
   }
 };
 const command = factory("", {
-  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
-  // 'Content-Type': 'text/html;charset=utf-8',
-  // 'Content-Language': 'zh-CN'
+  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
+  "Content-Type": "text/html;charset=utf-8",
+  "Content-Language": "zh-CN"
 });
 const csdnApi = (username) => command(`https://biaov.cn/`);
 const getCSDN = async (req, res) => {
   req.params;
   csdnApi().get().then((data) => {
-    console.log(data);
-    res.json(data.toString());
+    res.json(data);
   }).catch((error) => {
     console.log(error);
     res.status(422).json(error.data);

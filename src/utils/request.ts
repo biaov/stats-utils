@@ -17,10 +17,10 @@ export const service = (baseURL: string, headers: AxiosRequestConfig['headers'] 
   /**
    * respone 响应拦截器
    */
-  // instance.interceptors.response.use(
-  //   response => response.data,
-  //   ({ response }) => Promise.reject(response)
-  // )
+  instance.interceptors.response.use(
+    response => response.data,
+    ({ response }) => Promise.reject(response)
+  )
 
   return instance
 }
