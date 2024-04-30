@@ -71,14 +71,15 @@ const transformData = (data: string) => {
  */
 export const getCSDN = async (req: Request, res: Response) => {
   const { username } = req.params
-  csdnApi(username)
+  csdnApi
+    .get<string>({ url: `https://blog.csdn.net/${username}` })
     .then(data => {
       const options = transformData(data)
       res.setHeader('Content-Type', 'image/svg+xml')
       res.send(renderSvg(options, req.query))
     })
     .catch(error => {
-      res.status(422).json(error)
-      // res.status(422).json({ message: `请检查 ${username} 是否正确` })
+      const { status, data } = error.response
+      res.status(status).json(data)
     })
 }

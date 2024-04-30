@@ -2,7 +2,6 @@ import express, { Router } from "express";
 import dayjs from "dayjs";
 import axios from "axios";
 import { parseFromString } from "dom-parser";
-import https from "https";
 const transformColor = (color) => (`${color}`.includes("rgb") ? "" : "#") + `${color}`;
 const getCharacterLength = (str) => {
   let length = 0;
@@ -52,8 +51,8 @@ const factory = (baseURL2, headers = {}) => {
     post: (data = {}, config = {}) => factory2.post(path, data, config)
   });
 };
-const command = factory("https://api.github.com/", { Authorization: `bearer ${process.env.GITHUB_TOKEN}` });
-const graphqlApi = command("graphql");
+const command$1 = factory("https://api.github.com/", { Authorization: `bearer ${process.env.GITHUB_TOKEN}` });
+const graphqlApi = command$1("graphql");
 const getGraphqlParams = (to, from, name) => ({
   query: `
     query userInfo($name: String!, $from: DateTime!, $to: DateTime!) {
@@ -106,30 +105,10 @@ const getGithubStats = async (req, res) => {
     return error;
   }
 };
-factory("https://blog.csdn.net/", {
-  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
-  "Content-Type": "text/html;charset=utf-8"
+const command = factory("https://desktop.biaov.cn/api/", {
+  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
 });
-const csdnApi = (username) => new Promise((resolve, reject) => {
-  https.get(
-    `https://blog.csdn.net/${username}`,
-    {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
-        "Content-Type": "text/html;charset=utf-8"
-      }
-    },
-    (res) => {
-      let data = "";
-      res.on("data", (chunk) => {
-        data += chunk;
-      });
-      res.on("end", () => {
-        resolve(data);
-      });
-    }
-  ).on("error", reject);
-});
+const csdnApi = command("proxy");
 const defaultSVGOption = {
   color: "#38bdae",
   background: "#1a1b27",
@@ -178,12 +157,13 @@ const transformData = (data) => {
 };
 const getCSDN = async (req, res) => {
   const { username } = req.params;
-  csdnApi(username).then((data) => {
+  csdnApi.get({ url: `https://blog.csdn.net/${username}` }).then((data) => {
     const options = transformData(data);
     res.setHeader("Content-Type", "image/svg+xml");
     res.send(renderSvg(options, req.query));
   }).catch((error) => {
-    res.status(422).json(error);
+    const { status, data } = error.response;
+    res.status(status).json(data);
   });
 };
 const router = Router();
