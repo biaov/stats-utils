@@ -19,7 +19,7 @@ export const service = (baseURL: string, headers: AxiosRequestConfig['headers'] 
    */
   instance.interceptors.response.use(
     response => response.data,
-    ({ response }) => Promise.reject(response)
+    (response) => Promise.reject(response)
   )
 
   return instance

@@ -13,7 +13,7 @@ router.get('/github-stats', getGithubStats)
 /**
  * 生成文字图
  */
-router.get('/text-image', getTextImage)
+router.get('/svg', getTextImage)
 
 /**
  * 获取 CSDN 面板

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { parseFromString } from 'dom-parser'
 import { csdnApi } from '@/api/card'
+import { transformColor } from '@/utils/function'
 import type { SVGOption } from './types'
 
 const defaultSVGOption: SVGOption = {
@@ -21,7 +22,7 @@ const height = 180
  */
 const renderSvg = (data: Option[], option: Partial<SVGOption>) => {
   Object.entries(option).forEach(([key, value]) => {
-    defaultSVGOption[key as keyof SVGOption] = (colorFields.includes(key) && value.includes('rgb') ? '' : `#`) + value
+    defaultSVGOption[key as keyof SVGOption] = colorFields.includes(key) ? transformColor(value) : value
   })
 
   const html = data.reduce((prev, item, i) => {
@@ -70,14 +71,15 @@ const transformData = (data: string) => {
  */
 export const getCSDN = async (req: Request, res: Response) => {
   const { username } = req.params
-  csdnApi(username)
-    .get<string>()
+  csdnApi
+    .get<string>({ url: `https://blog.csdn.net/${username}` })
     .then(data => {
       const options = transformData(data)
       res.setHeader('Content-Type', 'image/svg+xml')
       res.send(renderSvg(options, req.query))
     })
-    .catch(() => {
-      res.status(422).json({ message: `请检查 ${username} 是否正确` })
+    .catch(error => {
+      const { status, data } = error.response
+      res.status(status).json(data)
     })
 }

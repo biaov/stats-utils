@@ -1,15 +1,18 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "devCommand": "npm start",
+  "installCommand": "npm i",
   "builds": [
     {
       "src": "dist/index.js",
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/csdn/(.*)",
-      "dest": "https://blog.csdn.net/$1"
+      "source": "/(.+)",
+      "destination": "dist/index.js"
     }
   ],
   "redirects": [

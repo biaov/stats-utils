@@ -29,13 +29,14 @@ const config: UserConfig = {
     port
   },
   build: {
+    target: 'node20',
     outDir: resolve(__dirname, './dist'),
     lib: {
       entry: resolve(__dirname, './src/index.ts'),
       formats: ['es']
     },
     rollupOptions: {
-      external: ['path', 'child_process', 'fs', 'axios', 'dayjs', 'express', 'dom-parser'],
+      external: ['path', 'child_process', 'fs', 'axios', 'dayjs', 'express', 'https', 'dom-parser'],
       output: {
         entryFileNames: '[name].js'
       }

@@ -1,7 +1,5 @@
 import { Request, Response } from 'express'
-import dayjs from 'dayjs'
-import { graphqlApi } from '@/api/github'
-import type { GraphqlResponse, UserData, WeekItem } from './types'
+import { transformColor } from '@/utils/function'
 
 /**
  * 获取字符串长度
@@ -31,30 +29,15 @@ const getCharacterLength = (str: string) => {
  */
 export const getTextImage = async (req: Request, res: Response) => {
   let { text, size = 34, color = 'f56c6c' } = req.query
-  color = ((color as string).includes('rgb') ? '' : '#') + color
-  /**
-   * 文本
-   */
-  if (!text) {
-    res.status(422).json({ message: '文本内容必传' })
-    return
-  }
+  color = transformColor(color)
 
-  const height = +size * 1.31
-  const width = (+size * getCharacterLength(text as string)) / 2
+  if (!text) return res.status(422).json({ message: '文本内容必传' })
+
+  const height = Math.round(+size * 1.31)
+  const width = Math.round((+size * getCharacterLength(text as string)) / 2)
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-    <defs>
-      <style>
-        .cls-1 {
-          fill: #${color};
-          font-family: jiangxizhuokai-Regular, jiangxizhuokai;
-          font-size: ${size}px;
-        }
-      </style>
-    </defs>
-    <g>
-      <text class="cls-1" transform="translate(0 ${height * 0.7})"><tspan x="0" y="0">${text}</tspan></text>
-    </g>
+    <style>.cls-1 { fill: ${color};font-family: jiangxizhuokai-Regular, jiangxizhuokai;font-size: ${size}px;}</style>
+    <text class="cls-1" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">${text}</text>
   </svg>`
   res.setHeader('Content-Type', 'image/svg+xml')
   res.send(svg)

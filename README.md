@@ -159,11 +159,11 @@
 
 ### 根据文本生成 SVG 图片
 
-- `https://stats-utils.vercel.app/api/text-image?text=[自定义文本]`
-- ![案例](https://stats-utils.vercel.app/api/text-image?text=案例)
+- `https://stats-utils.vercel.app/api/svg?text=[自定义文本]`
+- ![案例](https://stats-utils.vercel.app/api/svg?text=案例)
 
 ```md
-![案例](https://stats-utils.vercel.app/api/text-image?text=案例)
+![案例](https://stats-utils.vercel.app/api/svg?text=案例)
 ```
 
 #### Query 参数
