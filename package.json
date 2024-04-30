@@ -11,8 +11,6 @@
   "description": "一个用于展示统计数据的项目 😀",
   "type": "module",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "vite",
     "build": "vite build",
     "install": "node scripts/install"
   },
