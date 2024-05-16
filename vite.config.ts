@@ -2,6 +2,7 @@ import { UserConfig } from 'vite'
 import { resolve } from 'path'
 import { VitePluginNode } from 'vite-plugin-node'
 import { port } from './src/config'
+import pkg from './package.json'
 
 const plugins = []
 process.env.NODE_ENV !== 'production' &&
@@ -13,6 +14,9 @@ process.env.NODE_ENV !== 'production' &&
       tsCompiler: 'esbuild'
     })
   )
+
+const external = Object.keys(pkg.dependencies)
+
 const config: UserConfig = {
   root: __dirname,
   resolve: {
@@ -36,7 +40,7 @@ const config: UserConfig = {
       formats: ['es']
     },
     rollupOptions: {
-      external: ['path', 'child_process', 'fs', 'axios', 'dayjs', 'express', 'https', 'dom-parser'],
+      external: [...external, 'path', 'child_process', 'fs', 'https'],
       output: {
         entryFileNames: '[name].js'
       }
