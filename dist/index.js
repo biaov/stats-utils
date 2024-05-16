@@ -182,11 +182,11 @@ const getCSDN = async (req, res) => {
 };
 const command = factory("https://api.npmjs.org/");
 const downloadsApi = (path) => command(`downloads/range/${path}`);
-const rectHeight = 19;
+const rectHeight = 20;
 const imageInitWidth = 14;
 const gap = 6 * 2;
 const fontSize = 11;
-const fontFamily = "Verdana,Geneva,DejaVu Sans,sans-serif";
+const fontFamily = "Verdana,Geneva,sans-serif,Arial";
 const textColor = "#fff";
 const textStyle = { fontSize, fontFamily };
 const renderSvg = ({ labelColor, color, label, value, image }) => {
@@ -210,7 +210,7 @@ const renderSvg = ({ labelColor, color, label, value, image }) => {
       <rect width="${prefixWidth}" height="${rectHeight}" fill="${labelColor}"/>
       <rect x="${prefixWidth}" width="${valueWidth}" height="${rectHeight}" fill="${color}" />
     </g>
-    <g fill="${textColor}" font-size="${fontSize}" dominant-baseline="middle" text-anchor="middle" font-family="${fontFamily}">
+    <g fill="${textColor}" font-size="${fontSize}" dominant-baseline="central" text-anchor="middle" font-family="${fontFamily}">
       ${imageHTML}
       <text x="${prefixWidth - labelWidth / 2}" y="${rectHeight / 2}">${label}</text>
       <text x="${prefixWidth + valueWidth / 2}" y="${rectHeight / 2}">${value}</text>
@@ -237,6 +237,7 @@ const getDownloads = async (req, res) => {
       return res.json({ data: downloads });
     let num = +(downloads / 1e3).toFixed(1);
     num > 1 && (num = `${num}k`);
+    getTextWidth(label, textStyle) + gap;
     res.setHeader("Content-Type", "image/svg+xml");
     res.send(renderSvg({ labelColor, color, label, value: `${num}`, image }));
   }).catch((error) => {

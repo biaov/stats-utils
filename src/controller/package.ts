@@ -7,7 +7,7 @@ import type { PackageTS } from './types'
 /**
  * svg 容器高度
  */
-const rectHeight = 19
+const rectHeight = 20
 
 /**
  * icon 图片大小
@@ -27,7 +27,7 @@ const fontSize = 11
 /**
  * 字体
  */
-const fontFamily = 'Verdana,Geneva,DejaVu Sans,sans-serif'
+const fontFamily = 'Verdana,Geneva,sans-serif,Arial'
 
 /**
  * 文本颜色
@@ -72,7 +72,7 @@ const renderSvg = ({ labelColor, color, label, value, image }: PackageTS.SVGOpti
       <rect width="${prefixWidth}" height="${rectHeight}" fill="${labelColor}"/>
       <rect x="${prefixWidth}" width="${valueWidth}" height="${rectHeight}" fill="${color}" />
     </g>
-    <g fill="${textColor}" font-size="${fontSize}" dominant-baseline="middle" text-anchor="middle" font-family="${fontFamily}">
+    <g fill="${textColor}" font-size="${fontSize}" dominant-baseline="central" text-anchor="middle" font-family="${fontFamily}">
       ${imageHTML}
       <text x="${prefixWidth - labelWidth / 2}" y="${rectHeight / 2}">${label}</text>
       <text x="${prefixWidth + valueWidth / 2}" y="${rectHeight / 2}">${value}</text>
@@ -110,13 +110,20 @@ export const getDownloads = async (req: ExpressHTTP.Request, res: ExpressHTTP.Re
       const downloads = data.downloads.reduce((prev, item) => prev + item.downloads, 0)
       // 如果不需要 svg 图，则返回统计数据
       if (svg === 'false') return res.json({ data: downloads })
-      
+
       /**
        * 格式化数量
        */
       let num: string | number = +(downloads / 1000).toFixed(1)
       num > 1 && (num = `${num}k`)
       // 返回 svg 图
+      const labelWidth = getTextWidth(label, textStyle) + gap
+      // res.json({
+      //   label,
+      //   textStyle,
+      //   labelWidth,
+      //   gap
+      // })
       res.setHeader('Content-Type', 'image/svg+xml')
       res.send(renderSvg({ labelColor, color, label, value: `${num}`, image }))
     })
