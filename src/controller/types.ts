@@ -37,12 +37,35 @@ export interface UserData {
   contributions: contributionDayItem[]
 }
 
-/**
- * svg option
- */
-export interface SVGOption {
-  color: string
-  background: string
-  title: string
-  titleColor: string
+export namespace CardTS {
+  /**
+   * svg option
+   */
+  export interface SVGOption {
+    color: string
+    background: string
+    title: string
+    titleColor: string
+  }
+}
+
+export namespace PackageTS {
+  export interface DownloadResponse {
+    downloads: number
+    day: string
+  }
+
+  export interface NPMDownloadsResponse {
+    start: string
+    end: string
+    package: string
+    downloads: DownloadResponse[]
+  }
+  export interface SVGOption {
+    value: string
+    label: string
+    labelColor: string
+    color: string
+    image: string
+  }
 }

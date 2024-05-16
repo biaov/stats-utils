@@ -1,4 +1,3 @@
-import { Request, Response } from 'express'
 import { transformColor } from '@/utils/function'
 
 /**
@@ -27,7 +26,7 @@ const getCharacterLength = (str: string) => {
 /**
  * Github 统计
  */
-export const getTextImage = async (req: Request, res: Response) => {
+export const getTextImage = async (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
   let { text, size = 34, color = 'f56c6c' } = req.query
   color = transformColor(color)
 

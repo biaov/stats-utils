@@ -11,7 +11,8 @@
 
 - [x] [获取近 30 天内的 Github 仓库贡献记录](#获取近-30-天内的-github-仓库贡献记录)
 - [x] [根据文本生成 SVG 图片](#根据文本生成-svg-图片)
-- [x] [CSDN 统计面板](csdn-统计面板)
+- [x] [CSDN 统计面板](#csdn-统计面板)
+- [x] [NPM 包下载量统计](#npm-包下载量统计)
 
 ## 使用
 
@@ -191,6 +192,26 @@
 | title      | 标题内容                                             | string | `CSDN 数据` |
 | titleColor | 标题颜色, 支持 16 进制, 自带 `#`, 或者 `rgb`, `rgba` | string | `70a5fd`    |
 
+### NPM 包下载量统计
+
+```md
+![包名](https://stats-utils.vercel.app/api/downloads/包名)
+```
+
+- ![mine-h5-ui](https://stats-utils.vercel.app/api/downloads/mine-h5-ui)
+
+#### Query 参数
+
+| 名称       | 描述         | 类型   | 可选值                                   | 默认值           |
+| ---------- | ------------ | ------ | ---------------------------------------- | ---------------- |
+| color      | 下载量背景色 | string | --                                       | `4c1`            |
+| label      | 标注         | string | --                                       | `downloads`      |
+| labelColor | 标注背景色   | string | --                                       | `555`            |
+| start      | 统计开始时间 | string | --                                       | 当前日期往前一年 |
+| end        | 统计结束时间 | string | --                                       | 当前日期         |
+| icon       | 图标名称     | string | [simple-icons](https://simpleicons.org/) | --               |
+| svg        | 是否返回 svg | string | true / false                             | `true`           |
+
 ## 项目运行
 
 ### 安装依赖
@@ -228,9 +249,11 @@ npm run build
 #### dependencies
 
 - `axios`: 网络请求工具
+- `canvas`: 位图工具
 - `dayjs`: 时间处理工具
 - `dom-parser`: 解析 HTML
 - `express`: Node 开发框架
+- `simple-icons`: [icon 图标库](https://simpleicons.org/)
 
 #### devDependencies
 

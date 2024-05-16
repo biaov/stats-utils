@@ -1,4 +1,3 @@
-import { Request, Response } from 'express'
 import dayjs from 'dayjs'
 import { graphqlApi } from '@/api/github'
 import type { GraphqlResponse, UserData } from './types'
@@ -30,7 +29,7 @@ const getGraphqlParams = (to: string, from: string, name: string) => ({
 /**
  * Github 统计
  */
-export const getGithubStats = async (req: Request, res: Response) => {
+export const getGithubStats = async (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
   const { username } = req.query
   /**
    * 近 30 天数据
@@ -58,7 +57,6 @@ export const getGithubStats = async (req: Request, res: Response) => {
 
       user.contributionsCollection.contributionCalendar.weeks.map(week =>
         week.contributionDays.map(item => {
-          // item.date = dayjs(item.date).date().toString()
           userData.contributions.push(item)
         })
       )

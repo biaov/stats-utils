@@ -1,10 +1,9 @@
-import { Request, Response } from 'express'
 import { parseFromString } from 'dom-parser'
 import { csdnApi } from '@/api/card'
 import { transformColor } from '@/utils/function'
-import type { SVGOption } from './types'
+import type { CardTS } from './types'
 
-const defaultSVGOption: SVGOption = {
+const defaultSVGOption: CardTS.SVGOption = {
   color: '#38bdae',
   background: '#1a1b27',
   title: 'CSDN 数据',
@@ -20,9 +19,9 @@ const height = 180
 /**
  * 渲染 svg
  */
-const renderSvg = (data: Option[], option: Partial<SVGOption>) => {
+const renderSvg = (data: Option[], option: Partial<CardTS.SVGOption>) => {
   Object.entries(option).forEach(([key, value]) => {
-    defaultSVGOption[key as keyof SVGOption] = colorFields.includes(key) ? transformColor(value) : value
+    defaultSVGOption[key as keyof CardTS.SVGOption] = colorFields.includes(key) ? transformColor(value) : value
   })
 
   const html = data.reduce((prev, item, i) => {
@@ -69,7 +68,7 @@ const transformData = (data: string) => {
 /**
  * csdn 统计
  */
-export const getCSDN = async (req: Request, res: Response) => {
+export const getCSDN = async (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
   const { username } = req.params
   csdnApi
     .get<string>({ url: `https://blog.csdn.net/${username}` })
