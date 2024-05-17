@@ -6,8 +6,7 @@
   "rewrites": [
     {
       "source": "/(.+)",
-      "destination": "dist/index.js",
-      "use": "@vercel/node"
+      "destination": "dist/index.js"
     }
   ],
   "redirects": [
