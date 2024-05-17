@@ -25,7 +25,3 @@ router.get('/csdn/:username', getCSDN)
  * 获取 NPM 包下载量
  */
 router.get('/downloads/:pkgName', getDownloads)
-
-router.get('/demo', (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
-  res.json({ data: 'demo' })
-})
