@@ -1,13 +1,13 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "devCommand": "npm start",
   "installCommand": "npm i",
   "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.+)",
-      "destination": "dist/index.js"
+      "destination": "dist/index.js",
+      "use": "@vercel/node"
     }
   ],
   "redirects": [
