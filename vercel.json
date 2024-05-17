@@ -1,20 +1,11 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "installCommand": "npm i",
-  "outputDirectory": "dist",
-  "framework": "vite",
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.+)",
-      "destination": "dist/index.js"
+      "src": "dist/index.js",
+      "use": "@vercel/node"
     }
   ],
-  "functions": {
-    "api/*": {
-      "runtime": "@vercel/node@3.1.5"
-    }
-  },
   "redirects": [
     {
       "source": "/",
