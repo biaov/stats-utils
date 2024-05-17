@@ -249,6 +249,9 @@ router.get("/github-stats", getGithubStats);
 router.get("/svg", getTextImage);
 router.get("/csdn/:username", getCSDN);
 router.get("/downloads/:pkgName", getDownloads);
+router.get("/demo", (req, res) => {
+  res.json({ data: "demo" });
+});
 const port = 4e3;
 const baseURL = "/api";
 const app = express();
