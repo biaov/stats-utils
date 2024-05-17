@@ -237,7 +237,6 @@ const getDownloads = async (req, res) => {
       return res.json({ data: downloads });
     let num = +(downloads / 1e3).toFixed(1);
     num > 1 && (num = `${num}k`);
-    getTextWidth(label, textStyle) + gap;
     res.setHeader("Content-Type", "image/svg+xml");
     res.send(renderSvg({ labelColor, color, label, value: `${num}`, image }));
   }).catch((error) => {

@@ -117,13 +117,6 @@ export const getDownloads = async (req: ExpressHTTP.Request, res: ExpressHTTP.Re
       let num: string | number = +(downloads / 1000).toFixed(1)
       num > 1 && (num = `${num}k`)
       // 返回 svg 图
-      const labelWidth = getTextWidth(label, textStyle) + gap
-      // res.json({
-      //   label,
-      //   textStyle,
-      //   labelWidth,
-      //   gap
-      // })
       res.setHeader('Content-Type', 'image/svg+xml')
       res.send(renderSvg({ labelColor, color, label, value: `${num}`, image }))
     })
