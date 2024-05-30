@@ -26,7 +26,7 @@ const getCharacterLength = (str: string) => {
 /**
  * Github 统计
  */
-export const getTextImage = async (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
+export const svgHandler = async (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
   let { text, size = 34, color = 'f56c6c' } = req.query
   color = transformColor(color)
 
@@ -35,7 +35,7 @@ export const getTextImage = async (req: ExpressHTTP.Request, res: ExpressHTTP.Re
   const height = Math.round(+size * 1.31)
   const width = Math.round((+size * getCharacterLength(text as string)) / 2)
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-    <style>.cls-1 { fill: ${color};font-family: jiangxizhuokai-Regular, jiangxizhuokai;font-size: ${size}px;}</style>
+    <style>.cls-1{fill:${color};font-family: jiangxizhuokai-Regular, jiangxizhuokai;font-size: ${size}px;}</style>
     <text class="cls-1" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">${text}</text>
   </svg>`
   res.setHeader('Content-Type', 'image/svg+xml')

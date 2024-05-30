@@ -6,4 +6,4 @@ export const port = 4e3
 /**
  * 接口前缀
  */
-export const baseURL = '/api'
+export const baseURL = '/'
