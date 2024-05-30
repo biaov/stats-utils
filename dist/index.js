@@ -29,7 +29,7 @@ const getCharacterLength = (str) => {
   }
   return length;
 };
-const getTextImage = async (req, res) => {
+const svgHandler = async (req, res) => {
   let { text, size = 34, color = "f56c6c" } = req.query;
   color = transformColor(color);
   if (!text)
@@ -37,7 +37,7 @@ const getTextImage = async (req, res) => {
   const height2 = Math.round(+size * 1.31);
   const width2 = Math.round(+size * getCharacterLength(text) / 2);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width2}" height="${height2}" viewBox="0 0 ${width2} ${height2}">
-    <style>.cls-1 { fill: ${color};font-family: jiangxizhuokai-Regular, jiangxizhuokai;font-size: ${size}px;}</style>
+    <style>.cls-1{fill:${color};font-family: jiangxizhuokai-Regular, jiangxizhuokai;font-size: ${size}px;}</style>
     <text class="cls-1" x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">${text}</text>
   </svg>`;
   res.setHeader("Content-Type", "image/svg+xml");
@@ -87,7 +87,7 @@ const getGraphqlParams = (to, from, name) => ({
   `,
   variables: { name, from, to }
 });
-const getGithubStats = async (req, res) => {
+const githubStatsHandler = async (req, res) => {
   const { username } = req.query;
   const now = dayjs();
   const from = now.subtract(30, "days").toISOString();
@@ -119,10 +119,12 @@ const getGithubStats = async (req, res) => {
     return error;
   }
 };
-const command$1 = factory("https://desktop.biaov.cn/api/", {
+const header = {
   "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
-});
-const csdnApi = command$1("proxy");
+};
+const command$1 = factory("https://blog.csdn.net/", header);
+factory("https://desktop.biaov.cn/api/", header);
+const csdnApi = (username) => command$1(username);
 const defaultSVGOption = {
   color: "#38bdae",
   background: "#1a1b27",
@@ -169,9 +171,9 @@ const transformData = (data) => {
   });
   return options;
 };
-const getCSDN = async (req, res) => {
+const csdnHandler = (req, res) => {
   const { username } = req.params;
-  csdnApi.get({ url: `https://blog.csdn.net/${username}` }).then((data) => {
+  csdnApi(username).get().then((data) => {
     const options = transformData(data);
     res.setHeader("Content-Type", "image/svg+xml");
     res.send(renderSvg$1(options, req.query));
@@ -217,7 +219,7 @@ const renderSvg = ({ labelColor, color, label, value, image }) => {
     </g>
   </svg>`;
 };
-const getDownloads = async (req, res) => {
+const downloadsHandler = async (req, res) => {
   const { pkgName } = req.params;
   const { start, end, labelColor: lc, color: c, label: l, svg = "true", icon } = req.query;
   const curDay = dayjs();
@@ -228,8 +230,12 @@ const getDownloads = async (req, res) => {
   const label = l || "downloads";
   let image = "";
   if (icon) {
-    const svgContent = icons[`si${titleCase(icon)}`].svg.replace("<path", `<path fill="${textColor}"`);
-    image = svgTobase64(svgContent);
+    try {
+      const svgContent = icons[`si${titleCase(icon)}`].svg.replace("<path", `<path fill="${textColor}"`);
+      image = svgTobase64(svgContent);
+    } catch {
+      image = "";
+    }
   }
   downloadsApi(`${startDate}:${endDate}/${pkgName}`).get().then((data) => {
     const downloads = data.downloads.reduce((prev, item) => prev + item.downloads, 0);
@@ -244,13 +250,34 @@ const getDownloads = async (req, res) => {
     res.status(status).json(data);
   });
 };
+const routes = [
+  {
+    name: "Github 统计",
+    path: "github-stats",
+    handler: githubStatsHandler
+  },
+  {
+    name: "生成文字图",
+    path: "svg",
+    handler: svgHandler
+  },
+  {
+    name: "获取 CSDN 面板",
+    path: "csdn/:username",
+    handler: csdnHandler
+  },
+  {
+    name: "获取 NPM 包下载量",
+    path: "downloads/:pkgName",
+    handler: downloadsHandler
+  }
+];
 const router = Router();
-router.get("/github-stats", getGithubStats);
-router.get("/svg", getTextImage);
-router.get("/csdn/:username", getCSDN);
-router.get("/downloads/:pkgName", getDownloads);
+routes.forEach((route) => {
+  router[route.method || "get"](`/${route.path}`, route.handler);
+});
 const port = 4e3;
-const baseURL = "/api";
+const baseURL = "/";
 const app = express();
 app.use(baseURL, router);
 app.listen(port);
