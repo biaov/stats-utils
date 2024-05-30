@@ -8,7 +8,7 @@
     "email": "biaov@qq.com",
     "url": "https://biaov.cn"
   },
-  "description": "一个用于展示统计数据的项目 😀",
+  "description": "一个用于展示统计数据的工具 😀",
   "type": "module",
   "scripts": {
     "start": "npm run dev",

@@ -1,6 +1,6 @@
 # stats-utils
 
-一个用于展示统计数据的项目 😀
+一个用于展示统计数据的工具 😀
 
 <h2 align="center">
   <a href="https://github.com/biaov/stats-utils"><img src="https://shields.io/github/v/release/biaov/stats-utils.svg?logo=github&label=version" alt="version" /></a>
