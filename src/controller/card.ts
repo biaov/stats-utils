@@ -1,5 +1,5 @@
 import { parseFromString } from 'dom-parser'
-import { csdnApi } from '@/api/card'
+import { csdnApi, csdnProxyApi } from '@/api/card'
 import { transformColor } from '@/utils/function'
 import type { CardTS } from './types'
 
@@ -68,10 +68,14 @@ const transformData = (data: string) => {
 /**
  * csdn 统计
  */
-export const getCSDN = async (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
+export const csdnHandler = (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
   const { username } = req.params
-  csdnApi
-    .get<string>({ url: `https://blog.csdn.net/${username}` })
+  // csdnProxyApi.get<string>({ url: import.meta.env.VITE_BLOG_URL + username })
+  /**
+   * 异步请求任务
+   */
+  csdnApi(username)
+    .get<string>()
     .then(data => {
       const options = transformData(data)
       res.setHeader('Content-Type', 'image/svg+xml')

@@ -83,7 +83,7 @@ const renderSvg = ({ labelColor, color, label, value, image }: PackageTS.SVGOpti
 /**
  * npm 下载量
  */
-export const getDownloads = async (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
+export const downloadsHandler = async (req: ExpressHTTP.Request, res: ExpressHTTP.Response) => {
   const { pkgName } = req.params
   const { start, end, labelColor: lc, color: c, label: l, svg = 'true', icon } = req.query
   const curDay = dayjs()
@@ -96,8 +96,12 @@ export const getDownloads = async (req: ExpressHTTP.Request, res: ExpressHTTP.Re
 
   // 传入图标时的操作
   if (icon) {
-    const svgContent = icons[`si${titleCase(icon)}` as keyof typeof icons].svg.replace('<path', `<path fill="${textColor}"`)
-    image = svgTobase64(svgContent)
+    try {
+      const svgContent = icons[`si${titleCase(icon)}` as keyof typeof icons].svg.replace('<path', `<path fill="${textColor}"`)
+      image = svgTobase64(svgContent)
+    } catch {
+      image = ''
+    }
   }
 
   // 请求下载统计接口
