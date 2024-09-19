@@ -28,19 +28,19 @@
     }
   ],
   "dependencies": {
-    "axios": "^1.7.2",
+    "axios": "^1.7.7",
     "canvas": "^2.11.2",
-    "dayjs": "^1.11.11",
+    "dayjs": "^1.11.13",
     "dom-parser": "^1.1.5",
-    "express": "^4.19.2",
-    "simple-icons": "^12.0.0"
+    "express": "^4.21.0",
+    "simple-icons": "^13.10.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
-    "@types/node": "^20.12.13",
-    "@vercel/node": "^3.1.5",
-    "terser": "^5.31.0",
-    "typescript": "^5.4.5",
+    "@types/node": "^22.5.5",
+    "@vercel/node": "^3.2.14",
+    "terser": "^5.33.0",
+    "typescript": "^5.6.2",
     "vite": "^4.5.3",
     "vite-plugin-node": "^3.1.0"
   }
