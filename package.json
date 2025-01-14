@@ -18,7 +18,7 @@
     "deploy": "vercel --prod"
   },
   "engines": {
-    "node": ">=22.11"
+    "node": ">=20.12"
   },
   "license": "ISC",
   "contributors": [
