@@ -32,8 +32,7 @@ const getCharacterLength = (str) => {
 const svgHandler = async (req, res) => {
   let { text, size = 34, color = "f56c6c" } = req.query;
   color = transformColor(color);
-  if (!text)
-    return res.status(422).json({ message: "文本内容必传" });
+  if (!text) return res.status(422).json({ message: "文本内容必传" });
   const height2 = Math.round(+size * 1.31);
   const width2 = Math.round(+size * getCharacterLength(text) / 2);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width2}" height="${height2}" viewBox="0 0 ${width2} ${height2}">
@@ -164,8 +163,7 @@ const transformData = (data) => {
   tagBox.getElementsByClassName("item").forEach((tag) => {
     const label = tag.getElementsByClassName("name")[0].textContent.slice(0, 2);
     const [numNode] = tag.getElementsByClassName("num");
-    if (!numNode)
-      return;
+    if (!numNode) return;
     const value = numNode.textContent;
     options.length < 6 && options.push({ label, value });
   });
@@ -239,8 +237,7 @@ const downloadsHandler = async (req, res) => {
   }
   downloadsApi(`${startDate}:${endDate}/${pkgName}`).get().then((data) => {
     const downloads = data.downloads.reduce((prev, item) => prev + item.downloads, 0);
-    if (svg === "false")
-      return res.json({ data: downloads });
+    if (svg === "false") return res.json({ data: downloads });
     let num = +(downloads / 1e3).toFixed(1);
     num > 1 && (num = `${num}k`);
     res.setHeader("Content-Type", "image/svg+xml");
